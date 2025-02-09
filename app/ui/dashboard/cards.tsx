@@ -5,7 +5,7 @@ import {
   InboxIcon,
 } from '@heroicons/react/24/outline';
 import { lusitana } from '@/app/ui/fonts';
-
+import { fetchCardData } from '@/app/lib/data';
 const iconMap = {
   collected: BanknotesIcon,
   customers: UserGroupIcon,
@@ -14,18 +14,29 @@ const iconMap = {
 };
 
 export default async function CardWrapper() {
+  const {
+    numberOfShortSellers,
+    numberOfShortReport,
+    totalPaidInvoices,
+    totalPendingInvoices,
+  } = await fetchCardData();
   return (
     <>
       {/* NOTE: Uncomment this code in Chapter 9 */}
-
+      <Card title="Share Price Impacted" value={100.0} type="collected" />
+      <Card title="Ongoing Campaigns" value={5} type="pending" />
+      <Card title="Total Activist Campaigns" value={numberOfShortReport} type="invoices" />
+      <Card
+        title="Total Short Seller"
+        value={numberOfShortSellers}
+        type="customers"/>
       {/* <Card title="Collected" value={totalPaidInvoices} type="collected" />
       <Card title="Pending" value={totalPendingInvoices} type="pending" />
       <Card title="Total Invoices" value={numberOfInvoices} type="invoices" />
       <Card
         title="Total Customers"
         value={numberOfCustomers}
-        type="customers"
-      /> */}
+        type="customers" */}
     </>
   );
 }

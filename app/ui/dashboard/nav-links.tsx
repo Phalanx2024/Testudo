@@ -10,11 +10,11 @@ import Link from 'next/link';
 const links = [
   { name: 'Home', href: '/dashboard', icon: HomeIcon },
   {
-    name: 'Invoices',
-    href: '/dashboard/invoices',
+    name: 'Short Campaigns',
+    href: '/dashboard/short-campaigns',
     icon: DocumentDuplicateIcon,
   },
-  { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  { name: 'Companies', href: '/dashboard/companies', icon: UserGroupIcon },
 ];
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';

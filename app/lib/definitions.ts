@@ -9,6 +9,15 @@ export type User = {
   password: string;
 };
 
+export type CompaniesTableType = {
+  id: string;
+  name: string;
+  ticker?: string;
+  publication_date?: Date;
+  short_seller?: string;
+  target_company?: string;
+};
+
 export type Customer = {
   id: string;
   name: string;
@@ -29,6 +38,29 @@ export type Invoice = {
 export type Revenue = {
   month: string;
   revenue: number;
+};
+
+export type shortReportStatistics = {
+  year: string;
+  number: number;
+};
+
+export type shortReport = {
+  id: string;
+  publication_date: Date;
+  report_title: string;
+  link: string
+  short_seller: string;
+  target_company: string;
+}
+
+export type latestShortReport = {
+  id: string;
+  publication_date: string;
+  report_title: string;
+  short_seller: string;
+  target_company: string;
+  link: string
 };
 
 export type LatestInvoice = {

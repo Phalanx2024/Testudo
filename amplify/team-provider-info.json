@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-testudo-dev-ce72c-authRole",
+      "UnauthRoleArn": "arn:aws:iam::586794456422:role/amplify-testudo-dev-ce72c-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::586794456422:role/amplify-testudo-dev-ce72c-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-testudo-dev-ce72c-deployment",
+      "UnauthRoleName": "amplify-testudo-dev-ce72c-unauthRole",
+      "StackName": "amplify-testudo-dev-ce72c",
+      "StackId": "arn:aws:cloudformation:us-east-1:586794456422:stack/amplify-testudo-dev-ce72c/9ba9dce0-e6e3-11ef-8b98-12c7b9dbdde5",
+      "AmplifyAppId": "d3hc3xbp8ckub6"
+    }
+  }
+}

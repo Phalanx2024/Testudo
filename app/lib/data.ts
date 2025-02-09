@@ -6,10 +6,43 @@ import {
   InvoicesTable,
   LatestInvoiceRaw,
   Revenue,
+  shortReport,
+  latestShortReport,
+  shortReportStatistics,
+  CompaniesTableType
 } from './definitions';
 import { formatCurrency } from './utils';
 
-export async function fetchRevenue() {
+
+export async function fetchShortReportsByTargetCompany(query: string = '') {
+  try {
+    const data = await sql`
+      SELECT target_company, short_seller, publication_date FROM short_reports
+      WHERE target_company ILIKE ${`%${query}%`}
+    `;
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch companies data.');
+  }
+}
+
+
+export async function fetchCompanies(query: string = '') {
+  try {
+    const data = await sql<CompaniesTableType>`
+      SELECT * FROM target_companies
+      WHERE name ILIKE ${`%${query}%`}
+      ORDER BY name ASC
+    `;
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch companies data.');
+  }
+}
+
+export async function  fetchRevenue() {
   try {
     // Artificially delay a response for demo purposes.
     // Don't do this in production :)
@@ -25,6 +58,77 @@ export async function fetchRevenue() {
   } catch (error) {
     console.error('Database Error:', error);
     throw new Error('Failed to fetch revenue data.');
+  }
+}
+
+export async function fetchShortReportsStatistic() {
+  try {
+    const data = await sql<shortReportStatistics>`SELECT * FROM report_statistic`;
+    return data.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch revenue data.');
+  }
+}
+
+const ITEMS_PER_PAGE = 15;
+export async function fetchShortReportsFilter(
+  query: string,
+  currentPage: number,
+) {
+  const offset = (currentPage - 1) * ITEMS_PER_PAGE;
+
+  try {
+    const reports = await sql<shortReport>`
+      SELECT *
+      FROM short_reports
+      WHERE short_reports.publication_date IS NOT NULL
+      ORDER BY short_reports.publication_date DESC
+      LIMIT ${ITEMS_PER_PAGE} OFFSET ${offset}
+    `;
+
+    return reports.rows;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch reports.');
+  }
+}
+
+export async function fetchShortReports(query: string) {
+  try {
+    const count = await sql`SELECT COUNT(*)
+    FROM short_reports
+    WHERE
+      short_reports.report_title ILIKE ${`%${query}%`} OR
+      short_reports.target_company::text ILIKE ${`%${query}%`} OR
+      short_reports.short_seller::text ILIKE ${`%${query}%`} 
+  `;
+    const totalPages = Math.ceil(Number(count.rows[0].count) / ITEMS_PER_PAGE);
+    return totalPages;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch total number of reports.');
+  }
+}
+
+
+export async function fetchLatestShortReport() {
+  try {
+    const data = await sql<latestShortReport>`
+      SELECT short_reports.id, short_reports.report_title, short_reports.short_seller, short_reports.target_company, short_reports.publication_date, short_reports.link
+      FROM short_reports
+      WHERE short_reports.publication_date IS NOT NULL
+      ORDER BY short_reports.publication_date DESC 
+      LIMIT 5`;
+
+    const latestShortReport = data.rows.map((short_report) => ({
+      ...short_report,
+      publication_date : short_report.publication_date.toString(),
+    }));
+    return latestShortReport;
+  } catch (error) {
+    console.error('Database Error:', error);
+    throw new Error('Failed to fetch the latest short reports.');
   }
 }
 
@@ -53,27 +157,27 @@ export async function fetchCardData() {
     // You can probably combine these into a single SQL query
     // However, we are intentionally splitting them to demonstrate
     // how to initialize multiple queries in parallel with JS.
-    const invoiceCountPromise = sql`SELECT COUNT(*) FROM invoices`;
-    const customerCountPromise = sql`SELECT COUNT(*) FROM customers`;
+    const shortSellerCountPromise = sql`SELECT COUNT(*) FROM short_sellers`;
+    const shortReportCountPromise = sql`SELECT COUNT(*) FROM short_reports`;
     const invoiceStatusPromise = sql`SELECT
          SUM(CASE WHEN status = 'paid' THEN amount ELSE 0 END) AS "paid",
          SUM(CASE WHEN status = 'pending' THEN amount ELSE 0 END) AS "pending"
          FROM invoices`;
 
     const data = await Promise.all([
-      invoiceCountPromise,
-      customerCountPromise,
+      shortSellerCountPromise,
+      shortReportCountPromise,
       invoiceStatusPromise,
     ]);
 
-    const numberOfInvoices = Number(data[0].rows[0].count ?? '0');
-    const numberOfCustomers = Number(data[1].rows[0].count ?? '0');
+    const numberOfShortSellers = Number(data[0].rows[0].count ?? '0');
+    const numberOfShortReport = Number(data[1].rows[0].count ?? '0');
     const totalPaidInvoices = formatCurrency(data[2].rows[0].paid ?? '0');
     const totalPendingInvoices = formatCurrency(data[2].rows[0].pending ?? '0');
 
     return {
-      numberOfCustomers,
-      numberOfInvoices,
+      numberOfShortReport,
+      numberOfShortSellers,
       totalPaidInvoices,
       totalPendingInvoices,
     };
@@ -83,7 +187,6 @@ export async function fetchCardData() {
   }
 }
 
-const ITEMS_PER_PAGE = 6;
 export async function fetchFilteredInvoices(
   query: string,
   currentPage: number,
