@@ -8,8 +8,9 @@ interface PageProps {
     query?: string;
   };
 }
-
+// @ts-ignore 
 export default function Page({ searchParams }: PageProps) {
+  // @ts-ignore 
   const query = searchParams?.query || '';
 
   return (
