@@ -8,11 +8,9 @@ interface PageProps {
     query?: string;
   };
 }
-// @ts-ignore 
-export default function Page({ searchParams }: PageProps) {
-  // @ts-ignore 
-  const query = searchParams?.query || '';
 
+export default function Page({ searchParams }: PageProps) {
+  const query = searchParams?.query || '';
   return (
     <div>
       <div className="w-full mb-4">
