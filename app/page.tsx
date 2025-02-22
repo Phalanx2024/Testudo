@@ -153,53 +153,48 @@ export default function Page() {
         </div>
       </section>
 
-      {/* About Us Section */}
-      <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto">
-          <div className="relative rounded-lg overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-black opacity-90">
-              <Image
-                src="/about-bg.jpg"
-                alt="About Us Background"
-                fill
-                className="object-cover mix-blend-overlay"
-              />
-            </div>
-            <div className="relative z-10 p-12 text-white">
-              <h2 className={`${lusitana.className} text-4xl font-bold mb-8`}>
-                About Us
-              </h2>
-              <h3 className="text-2xl font-bold mb-6">Our Mission</h3>
-              <p className="text-lg leading-relaxed max-w-2xl">
-                Our team is trained out of JPMorgan. We specialize in monitoring and predicting companies targeted by activist hedge funds. Through our free email notification services and data insights dashboard, we empower retail investors by providing predictive analytics for targeted companies.
-              </p>
-            </div>
-          </div>
+      {/* About Us Section with Footer */}
+      <section className="relative py-20 px-4">
+        <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-black opacity-90">
+          <Image
+            src="/about-bg.jpg"
+            alt="About Us Background"
+            fill
+            className="object-cover mix-blend-overlay"
+          />
         </div>
-      </section>
+        <div className="relative z-10 max-w-7xl mx-auto">
+          <div className="p-12 text-white">
+            <h2 className={`${lusitana.className} text-4xl font-bold mb-8`}>
+              About Us
+            </h2>
+            <h3 className="text-2xl font-bold mb-6">Our Mission</h3>
+            <p className="text-lg leading-relaxed max-w-2xl mb-20">
+              Our team is trained out of JPMorgan. We specialize in monitoring and predicting companies targeted by activist hedge funds. Through our free email notification services and data insights dashboard, we empower retail investors by providing predictive analytics for targeted companies.
+            </p>
 
-      {/* Footer */}
-      <footer className="bg-black text-white py-20">
-        <div className="max-w-7xl mx-auto px-4">
-          <div className="mb-12">
-            <h2 className="text-3xl font-bold mb-4">BastionBridge</h2>
+            {/* Footer Content */}
+            {/* <div className="border-t border-white/20 pt-8">
+              <div className="mb-12">
+                <h2 className="text-3xl font-bold mb-4">BastionBridge</h2>
+              </div>
+               */}
+              <div className="grid md:grid-cols-3 gap-8">
+                <div>
+                  <p className="mb-2">123-456-7890</p>
+                  <p>info@mysite.com</p>
+                </div>
+                <div>
+                  <p className="mb-2">London,</p>
+                  <p>United Kingdom</p>
+                </div>
+                <div className="flex gap-4">
+                  {/* Add social media icons if needed */}
+                </div>
+              </div>
+            </div>
           </div>
-          
-          <div className="grid md:grid-cols-3 gap-8 border-t border-gray-800 pt-8">
-            <div>
-              <p className="mb-2">123-456-7890</p>
-              <p>info@mysite.com</p>
-            </div>
-            <div>
-              <p className="mb-2">London,</p>
-              <p>United Kingdom</p>
-            </div>
-            <div className="flex gap-4">
-              {/* Add social media icons if needed */}
-            </div>
-          </div>
-        </div>
-      </footer>
+      </section>
     </main>
   );
 }
