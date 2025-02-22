@@ -12,6 +12,7 @@ import {
   CompaniesTableType
 } from './definitions';
 import { formatCurrency } from './utils';
+import { unstable_noStore as noStore } from 'next/cache';
 
 
 export async function fetchShortReportsByTargetCompany(query: string = '') {
@@ -113,9 +114,14 @@ export async function fetchShortReports(query: string) {
 
 
 export async function fetchLatestShortReport() {
+  // Prevent caching
+  noStore();
+  console.log('Fetching latest short reports...');  
+  
   try {
     const data = await sql<latestShortReport>`
-      SELECT short_reports.id, short_reports.report_title, short_reports.short_seller, short_reports.target_company, short_reports.publication_date, short_reports.link
+      SELECT short_reports.id, short_reports.report_title, short_reports.short_seller, 
+             short_reports.target_company, short_reports.publication_date, short_reports.link
       FROM short_reports
       WHERE short_reports.publication_date IS NOT NULL
       ORDER BY short_reports.publication_date DESC 
@@ -123,8 +129,9 @@ export async function fetchLatestShortReport() {
 
     const latestShortReport = data.rows.map((short_report) => ({
       ...short_report,
-      publication_date : short_report.publication_date.toString(),
+      publication_date: short_report.publication_date.toString(),
     }));
+    
     return latestShortReport;
   } catch (error) {
     console.error('Database Error:', error);
