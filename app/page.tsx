@@ -24,8 +24,8 @@ export default function Page() {
             Short Activism
           </h1>
           <p className="text-xl md:text-2xl mb-8 text-center max-w-3xl">
-            The activist space has become oversaturated, with low-quality publishers capitalizing on the credibility established by genuine and honest activists over the past decade.
-          </p>
+          Testudo provides AI advisory in minutes to public companies undergoing urgent issues that take investment banks days to advise             
+          Our models are built on 10,000s of short seller situations to anticipate their impact on share price. We monitor over 70 short activists, their tweets, linked funds, and research:</p>
           <div className="flex gap-4">
             <Link
               href="/dashboard"
@@ -155,23 +155,25 @@ export default function Page() {
 
       {/* About Us Section */}
       <section className="py-20 px-4">
-        <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12">
-          <div className="relative h-[400px]">
-            <Image
-              src="/about-bg.jpg"
-              alt="About Us Background"
-              fill
-              className="object-cover rounded-lg"
-            />
-          </div>
-          <div>
-            <h2 className={`${lusitana.className} text-4xl font-bold mb-8`}>
-              About Us
-            </h2>
-            <h3 className="text-2xl font-bold mb-6">Our Mission</h3>
-            <p className="text-gray-600 text-lg leading-relaxed">
-              Our team is trained out of JPMorgan. We specialize in monitoring and predicting companies targeted by activist hedge funds. Through our free email notification services and data insights dashboard, we empower retail investors by providing predictive analytics for targeted companies.
-            </p>
+        <div className="max-w-7xl mx-auto">
+          <div className="relative rounded-lg overflow-hidden">
+            <div className="absolute inset-0 bg-gradient-to-r from-blue-900 to-black opacity-90">
+              <Image
+                src="/about-bg.jpg"
+                alt="About Us Background"
+                fill
+                className="object-cover mix-blend-overlay"
+              />
+            </div>
+            <div className="relative z-10 p-12 text-white">
+              <h2 className={`${lusitana.className} text-4xl font-bold mb-8`}>
+                About Us
+              </h2>
+              <h3 className="text-2xl font-bold mb-6">Our Mission</h3>
+              <p className="text-lg leading-relaxed max-w-2xl">
+                Our team is trained out of JPMorgan. We specialize in monitoring and predicting companies targeted by activist hedge funds. Through our free email notification services and data insights dashboard, we empower retail investors by providing predictive analytics for targeted companies.
+              </p>
+            </div>
           </div>
         </div>
       </section>
