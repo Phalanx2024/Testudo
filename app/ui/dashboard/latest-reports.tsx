@@ -27,8 +27,8 @@ export default async function LatestShortReports() {
                   },
                 )}
               >
-                <div className="flex items-center">
-                  <div className="min-w-0">
+                <div className="flex items-center flex-1 min-w-0 mr-4">
+                  <div className="min-w-0 w-full">
                     <p className="truncate text-sm font-semibold md:text-base">
                       {shortReport.report_title}
                     </p>
@@ -38,7 +38,7 @@ export default async function LatestShortReports() {
                   </div>
                 </div>
                 <p
-                  className={`${lusitana.className} truncate text-sm font-medium md:text-base`}
+                  className={`${lusitana.className} truncate text-sm font-medium md:text-base whitespace-nowrap`}
                 >
                   {shortReport.target_company}
                 </p>
