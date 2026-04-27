@@ -3,6 +3,8 @@ import {
   UserGroupIcon,
   HomeIcon,
   DocumentDuplicateIcon,
+  MagnifyingGlassCircleIcon,
+  SignalIcon,
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 // Map of links to display in the side navigation.
@@ -15,6 +17,8 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: 'Companies', href: '/dashboard/companies', icon: UserGroupIcon },
+  { name: 'Research', href: '/dashboard/research', icon: MagnifyingGlassCircleIcon },
+  { name: 'Scrapers', href: '/dashboard/scrapers', icon: SignalIcon },
 ];
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
